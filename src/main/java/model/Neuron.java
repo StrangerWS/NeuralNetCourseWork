@@ -1,4 +1,6 @@
-public class Web {
+package model;
+
+public class Neuron {
     private int[][] multiplied;
     private int[][] weights;
     private int[][] input;
@@ -21,7 +23,7 @@ public class Web {
         return sum;
     }
 
-    public Web(int sizeX, int sizeY, int[][] input) {
+    public Neuron(int sizeX, int sizeY, int[][] input) {
         weights = new int[sizeX][sizeY];
         multiplied = new int[sizeX][sizeY];
         this.input = input;
