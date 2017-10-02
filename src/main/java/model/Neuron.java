@@ -7,6 +7,10 @@ public class Neuron {
     private int limit = 9;
     private int sum;
 
+    public void setInput(int[][] input) {
+        this.input = input;
+    }
+
     public int[][] getMultiplied() {
         return multiplied;
     }
