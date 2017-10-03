@@ -1,11 +1,22 @@
-package model;
+package com.strangerws.ssu.neuralnet.model;
 
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by DobryninAM on 02.10.2017.
- */
+//public class NeuralNet {
+//    List<Neuron> net;
+//
+//    public List<Character> result(){
+//        List<Character> array = new ArrayList<>();
+//        for (int i = 0; i < net.size(); i++) {
+//            if (net.get(i).resolve()){
+//                array.add((char) i);
+//            }
+//        }
+//        return array;
+//    }
+//}
+
 public class NeuralNet {
     private List<Neuron> net = new ArrayList<>();
     private int length;
@@ -27,7 +38,7 @@ public class NeuralNet {
         for (int i = 0; i < net.size(); i++) {
             Neuron tmp = net.get(i);
             tmp.setInput(input);
-            if(tmp.resolve()) array.add(i);
+            if(tmp.analyze()) array.add(i);
         }
         return array;
     }

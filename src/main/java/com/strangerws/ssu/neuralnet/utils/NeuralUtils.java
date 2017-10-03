@@ -1,4 +1,4 @@
-package utils;
+package com.strangerws.ssu.neuralnet.utils;
 
 public class NeuralUtils {
 

@@ -1,4 +1,4 @@
-package model;
+package com.strangerws.ssu.neuralnet.model;
 
 public class Neuron {
     private int[][] multiplied;
@@ -41,7 +41,7 @@ public class Neuron {
         this.weights = weights;
     }
 
-    public void multiplyWeights() {
+    private void multiplyWeights() {
         for (int i = 0; i < weights.length; i++) {
             for (int j = 0; j < weights[0].length; j++) {
                 multiplied[i][j] = input[i][j] * weights[i][j];
@@ -49,7 +49,7 @@ public class Neuron {
         }
     }
 
-    public void sum() {
+    private void sum() {
         sum = 0;
         for (int i = 0; i < weights.length; i++) {
             for (int j = 0; j < weights[0].length; j++) {
@@ -58,8 +58,14 @@ public class Neuron {
         }
     }
 
-    public boolean resolve(){
+    private boolean resolve(){
         return sum >= limit;
+    }
+
+    public boolean analyze(){
+        multiplyWeights();
+        sum();
+        return resolve();
     }
 
     public void changeWeights(boolean flag){

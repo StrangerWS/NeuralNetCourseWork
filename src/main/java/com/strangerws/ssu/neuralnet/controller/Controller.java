@@ -1,7 +1,7 @@
-package controller;
+package com.strangerws.ssu.neuralnet.controller;
 
-import model.NeuralNet;
-import model.Neuron;
+import com.strangerws.ssu.neuralnet.model.NeuralNet;
+import com.strangerws.ssu.neuralnet.model.Neuron;
 
 import java.io.*;
 
@@ -49,9 +49,10 @@ public class Controller {
         }
     }
 
-    public void fill(){
+    public void fill() {
         for (int i = 0; i < net.getLength(); i++) {
-            Neuron neuron = new Neuron(3, 5, readFileToArray("C:\\Users\\DobryninAM\\IdeaProjects\\NeuralNetCourseWork\\src\\main\\resources\\image\\image" + i + ".txt"));
+            Neuron neuron = new Neuron(3, 5, readFileToArray("C:\\Users\\StrangerWS\\IdeaProjects\\NeuralNetCourseWork\\src\\main\\resources\\image\\image" + i + ".txt"));
+            neuron.setWeights(readFileToArray("C:\\Users\\StrangerWS\\IdeaProjects\\NeuralNetCourseWork\\src\\main\\resources\\memory\\memory" + i + ".txt"));
             net.getNet().add(neuron);
         }
     }
@@ -60,12 +61,11 @@ public class Controller {
         for (int i = 0; i < net.getLength(); i++) {
             System.out.print("Neuron for " + i);
             for (int k = 0; k < net.getLength(); k++) {
-                Neuron neuron = net.getNet().get(k);
-                neuron.setWeights(readFileToArray("C:\\Users\\DobryninAM\\IdeaProjects\\NeuralNetCourseWork\\src\\main\\resources\\memory\\memory" + i + ".txt"));
-                neuron.multiplyWeights();
-                neuron.sum();
+                Neuron neuron = net.getNet().get(i);
+                neuron.setInput(readFileToArray("C:\\Users\\StrangerWS\\IdeaProjects\\NeuralNetCourseWork\\src\\main\\resources\\image\\image" + k + ".txt"));
+                neuron.setWeights(readFileToArray("C:\\Users\\StrangerWS\\IdeaProjects\\NeuralNetCourseWork\\src\\main\\resources\\memory\\memory" + i + ".txt"));
                 System.out.print("\t" + k);
-                if (neuron.resolve()) {
+                if (neuron.analyze()) {
                     System.out.print(" True ,");
                     if (k != i) {
                         neuron.changeWeights(true);
@@ -78,7 +78,7 @@ public class Controller {
                 }
 
                 //System.out.print("sum:" + neuron.getSum());
-                saveArrayToFile("C:\\Users\\DobryninAM\\IdeaProjects\\NeuralNetCourseWork\\src\\main\\resources\\memory\\memory" + i + ".txt", neuron.getWeights());
+                saveArrayToFile("C:\\Users\\StrangerWS\\IdeaProjects\\NeuralNetCourseWork\\src\\main\\resources\\memory\\memory" + i + ".txt", neuron.getWeights());
             }
             System.out.println();
         }
@@ -87,7 +87,7 @@ public class Controller {
     public static void forget() {
         int[][] array = new int[3][5];
         for (int i = 0; i < 10; i++) {
-            saveArrayToFile("C:\\Users\\DobryninAM\\IdeaProjects\\NeuralNetCourseWork\\src\\main\\resources\\memory\\memory" + i + ".txt", array);
+            saveArrayToFile("C:\\Users\\StrangerWS\\IdeaProjects\\NeuralNetCourseWork\\src\\main\\resources\\memory\\memory" + i + ".txt", array);
         }
     }
 
