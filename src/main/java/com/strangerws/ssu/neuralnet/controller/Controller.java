@@ -2,6 +2,7 @@ package com.strangerws.ssu.neuralnet.controller;
 
 import com.strangerws.ssu.neuralnet.model.NeuralNet;
 import com.strangerws.ssu.neuralnet.model.Neuron;
+import com.strangerws.ssu.neuralnet.utils.ImageAnalyzer;
 
 import java.io.*;
 
@@ -20,7 +21,7 @@ public class Controller {
         int[][] array = null;
         try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
             String line;
-            array = new int[3][5];
+            array = new int[16][16];
             int k = 0;
             while ((line = reader.readLine()) != null) {
                 String[] arr = line.split(" ");
@@ -51,7 +52,7 @@ public class Controller {
 
     public void fill() {
         for (int i = 0; i < net.getLength(); i++) {
-            Neuron neuron = new Neuron(3, 5, readFileToArray("C:\\Users\\StrangerWS\\IdeaProjects\\NeuralNetCourseWork\\src\\main\\resources\\image\\image" + i + ".txt"));
+            Neuron neuron = new Neuron(16, 16,ImageAnalyzer.analyze("C:\\Users\\StrangerWS\\IdeaProjects\\NeuralNetCourseWork\\src\\main\\resources\\image-big\\image" + i + "-1.jpg"));
             neuron.setWeights(readFileToArray("C:\\Users\\StrangerWS\\IdeaProjects\\NeuralNetCourseWork\\src\\main\\resources\\memory\\memory" + i + ".txt"));
             net.getNet().add(neuron);
         }
@@ -61,31 +62,33 @@ public class Controller {
         for (int i = 0; i < net.getLength(); i++) {
             System.out.print("Neuron for " + i);
             for (int k = 0; k < net.getLength(); k++) {
-                Neuron neuron = net.getNet().get(i);
-                neuron.setInput(readFileToArray("C:\\Users\\StrangerWS\\IdeaProjects\\NeuralNetCourseWork\\src\\main\\resources\\image\\image" + k + ".txt"));
-                neuron.setWeights(readFileToArray("C:\\Users\\StrangerWS\\IdeaProjects\\NeuralNetCourseWork\\src\\main\\resources\\memory\\memory" + i + ".txt"));
-                System.out.print("\t" + k);
-                if (neuron.analyze()) {
-                    System.out.print(" True ,");
-                    if (k != i) {
-                        neuron.changeWeights(true);
+                for (int j = 1; j < 6; j++) {
+                    Neuron neuron = net.getNet().get(i);
+                    neuron.setInput(ImageAnalyzer.analyze("C:\\Users\\StrangerWS\\IdeaProjects\\NeuralNetCourseWork\\src\\main\\resources\\image-big\\image" + k + "-" + j + ".jpg"));
+                    neuron.setWeights(readFileToArray("C:\\Users\\StrangerWS\\IdeaProjects\\NeuralNetCourseWork\\src\\main\\resources\\memory\\memory" + i + ".txt"));
+                    System.out.print("\t" + k);
+                    if (neuron.analyze()) {
+                        System.out.print(" True ,");
+                        if (k != i) {
+                            neuron.changeWeights(true);
+                        }
+                    } else {
+                        System.out.print(" False,");
+                        if (k == i) {
+                            neuron.changeWeights(false);
+                        }
                     }
-                } else {
-                    System.out.print(" False,");
-                    if (k == i) {
-                        neuron.changeWeights(false);
-                    }
-                }
 
-                //System.out.print("sum:" + neuron.getSum());
-                saveArrayToFile("C:\\Users\\StrangerWS\\IdeaProjects\\NeuralNetCourseWork\\src\\main\\resources\\memory\\memory" + i + ".txt", neuron.getWeights());
+                    //System.out.print("sum:" + neuron.getSum());
+                    saveArrayToFile("C:\\Users\\StrangerWS\\IdeaProjects\\NeuralNetCourseWork\\src\\main\\resources\\memory\\memory" + i + ".txt", neuron.getWeights());
+                }
             }
             System.out.println();
         }
     }
 
     public static void forget() {
-        int[][] array = new int[3][5];
+        int[][] array = new int[16][16];
         for (int i = 0; i < 10; i++) {
             saveArrayToFile("C:\\Users\\StrangerWS\\IdeaProjects\\NeuralNetCourseWork\\src\\main\\resources\\memory\\memory" + i + ".txt", array);
         }

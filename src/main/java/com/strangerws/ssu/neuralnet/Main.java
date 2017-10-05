@@ -2,6 +2,7 @@ package com.strangerws.ssu.neuralnet;
 
 import com.strangerws.ssu.neuralnet.controller.Controller;
 import com.strangerws.ssu.neuralnet.model.NeuralNet;
+import com.strangerws.ssu.neuralnet.utils.ImageAnalyzer;
 
 public class Main {
 
@@ -10,7 +11,7 @@ public class Main {
 
         controller.fill();
         Controller.forget();
-        for (int k = 0; k < 40; k++) {
+        for (int k = 0; k < 100; k++) {
             System.out.println("Epoch #" + (k + 1));
             controller.learn();
         }
@@ -18,7 +19,9 @@ public class Main {
         System.out.println("Tests over");
 
         for (int i = 0; i < 10; i++) {
-            System.out.println(controller.getNet().analyze(Controller.readFileToArray("C:\\Users\\StrangerWS\\IdeaProjects\\NeuralNetCourseWork\\src\\main\\resources\\image\\image"+ i +".txt")));
+            for (int j = 1; j < 6; j++) {
+                System.out.println(controller.getNet().analyze(ImageAnalyzer.analyze("C:\\Users\\StrangerWS\\IdeaProjects\\NeuralNetCourseWork\\src\\main\\resources\\image-big\\image" + i + "-" + j + ".jpg")));
+            }
         }
 
     }
