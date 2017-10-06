@@ -4,7 +4,7 @@ public class Neuron {
     private int[][] multiplied;
     private int[][] weights;
     private int[][] input;
-    private int limit = 9;
+    private int limit = 50;
     private int sum;
 
     public void setInput(int[][] input) {

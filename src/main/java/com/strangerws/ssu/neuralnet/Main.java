@@ -11,7 +11,7 @@ public class Main {
 
         controller.fill();
         Controller.forget();
-        for (int k = 0; k < 100; k++) {
+        for (int k = 0; k < 150; k++) {
             System.out.println("Epoch #" + (k + 1));
             controller.learn();
         }
@@ -23,6 +23,5 @@ public class Main {
                 System.out.println(controller.getNet().analyze(ImageAnalyzer.analyze("C:\\Users\\StrangerWS\\IdeaProjects\\NeuralNetCourseWork\\src\\main\\resources\\image-big\\image" + i + "-" + j + ".jpg")));
             }
         }
-
     }
 }
