@@ -7,6 +7,7 @@ import com.strangerws.ssu.neuralnet.utils.ImageAnalyzer;
 public class Main {
 
     public static void main(String[] args) {
+
         Controller controller = new Controller(new NeuralNet(10));
 
         controller.fill();
@@ -23,5 +24,6 @@ public class Main {
                 System.out.println(controller.getNet().analyze(ImageAnalyzer.analyze("C:\\Users\\StrangerWS\\IdeaProjects\\NeuralNetCourseWork\\src\\main\\resources\\image-big\\image" + i + "-" + j + ".jpg")));
             }
         }
+        System.out.println(controller.getNet().analyze(ImageAnalyzer.analyze("C:\\Users\\StrangerWS\\Documents\\test.jpg")));
     }
 }
